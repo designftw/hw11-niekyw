@@ -1,0 +1,63 @@
+#usernameError {
+    display: none;
+    color: red
+}
+
+#recipientError {
+    display: none;
+    color: red
+}
+
+#recipientDisplay {
+    display: none
+}
+
+#inputUser {
+    display: block;
+}
+
+#message {
+    display: none;
+}
+
+#send {
+    display: none;
+}
+
+ul {
+    margin-bottom: 30px;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+#right {
+    float: right;
+    display: block;
+}
+
+body {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+details li {
+    margin-left: 15px;
+}
+
+#content {
+    margin-left: 15px;
+    margin-right: 15px;
+    color: blue
+}
+
+#inner {
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
