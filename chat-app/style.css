@@ -8,21 +8,6 @@
     color: red
 }
 
-#recipientDisplay {
-    display: none
-}
-
-#inputUser {
-    display: block;
-}
-
-#message {
-    display: none;
-}
-
-#send {
-    display: none;
-}
 
 ul {
     margin-bottom: 30px;
@@ -61,3 +46,16 @@ details li {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+button {
+    background-color: rgb(247, 240, 240);
+    border-style: solid;
+    border: 1px;
+    border-color: black;
+}
+
+button:hover {
+    background-color: rgb(117, 180, 201);
+}
+
+

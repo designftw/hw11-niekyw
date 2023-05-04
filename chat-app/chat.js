@@ -484,8 +484,67 @@ const Reply = {
   template: '#reply'
 }
 
+const Profile = {
+  props: ['actor'],
 
-app.components = { Name, Like, Read, Reply}
+  setup(props) {
+    const { actor } = Vue.toRefs(props)
+    const $gf = Vue.inject('graffiti')
+    return $gf.useObjects([actor])
+  },
+
+  computed: {
+    profile() {
+      const filtered= this.objects.filter(m=> m.type==="Profile" && m.icon && m.icon.type === 'Image')
+      .reduce((prev, curr)=> !prev || curr.published > prev.published? curr : prev, null);
+      return filtered;
+    }
+  },
+
+  watch: {
+    async profile(profile) {
+      console.log(profile.icon.magnet);
+      let blob;
+      let magnet = await this.$gf.media.fetch(profile.icon.magnet);
+      blob = URL.createObjectURL(magnet)
+      this.image = blob;
+    }
+  },
+
+  data() {
+    return {
+      editing: false,
+      editText: '',
+      file: null,
+      image: null
+    }
+  },
+
+  methods: {
+    async setProfile() {
+      const message = {
+        type: 'Profile',
+        icon: {
+          type: 'Image',
+          magnet: await this.$gf.media.store(this.file)
+
+        }
+      }
+      this.file = null;
+      this.$gf.post(message);
+    },
+
+    onImageAttachment(event) {
+      const file = event.target.files[0]
+      this.file = file;
+    }
+  },
+
+  template: '#profile'
+}
+
+
+app.components = { Name, Like, Read, Reply, Profile}
 Vue.createApp(app)
    .use(GraffitiPlugin(Vue))
    .mount('#app')
