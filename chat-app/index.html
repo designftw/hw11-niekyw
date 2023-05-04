@@ -91,21 +91,25 @@
 
           <!-- Otherwise, display a bunch of properties from the message -->
           <ul v-else>
-            <li>Message: {{ message.content }} </li>
-            <li>From Name: <name :actor="message.actor"></name></li>
-            <li>From Actor ID: {{ message.actor }}</li>
-            <li>From Username: {{ actordict[message.actor] }}</li>
-            <template v-if="privateMessaging">
-              <li>To Name: <name :actor="message.bto[0]"></name></li>
-              <li>To Actor ID: {{ message.bto[0] }}</li>
-              <li>To Username: {{ actordict[message.bto[0]] }}</li>
-            </template>
-            <li>Published at Time: {{ message.published }}</li>
-            <li>Last Edited at Time: {{ message.updated }}</li>
+            <li><b>Message</b>: {{ message.content }} </li>
+            <li><b>From Name</b>: <name :actor="message.actor"></name> ({{ actordict[message.actor] }})</li>
 
-              <!-- This is a unique identifier that can be used to "link" to messages -->
-            <li>ID: {{ message.id }}</li>
+            <details>
+              <summary><b>More Info</b>:</summary>
+              <ul>
+                <li><b>From Actor ID</b>: {{ message.actor }}</li>
+                <template v-if="privateMessaging">
+                  <li><b>To Name</b>: <name :actor="message.bto[0]"></name></li>
+                  <li><b>To Actor ID</b>: {{ message.bto[0] }}</li>
+                  <li><b>To Username</b>: {{ actordict[message.bto[0]] }}</li>
+                </template>
+                <li><b>Published at Time</b>: {{ message.published }}</li>
+                <li><b>Last Edited at Time</b>: {{ message.updated }}</li>
 
+                  <!-- This is a unique identifier that can be used to "link" to messages -->
+                <li><b>Message ID</b>: {{ message.id }}</li>
+              </ul>
+          </details>
             <li v-if="message.attachment && message.attachment.magnet in imageDownloads">
               <span v-if="imageDownloads[message.attachment.magnet]=='downloading'">
                 Image is downloading...
@@ -116,9 +120,9 @@
               <img v-else :src="imageDownloads[message.attachment.magnet]" />
             </li>
 
-            <li><read :messageid="message.id" :actordict="actordict"></read></li>
+            <read :messageid="message.id" :actordict="actordict"></read>
 
-            <li><reply :messageid="message.id" :actordict="actordict"></reply></li>
+            <reply :messageid="message.id" :actordict="actordict"></reply>
 
 
             <!-- Only add these controls if the message is ours -->
@@ -134,7 +138,7 @@
             </template>
 
 
-            <li><like :messageid="message.id"></like></li>
+            <like :messageid="message.id"></like><br><br>
           </ul>
         </li>
       </ul>
@@ -171,7 +175,7 @@
 
   <template id="read">
     <details>
-      <summary>Read By: {{ readsUsers.length }}</summary>
+      <summary><b>Read By</b>: {{ readsUsers.length }}</summary>
       <ol>
         <li v-for="item in readsUsers">{{ item }}</li>
       </ol>
@@ -179,97 +183,78 @@
   </template>
 
   <template id="reply">
-    <form @submit.prevent="sendMessage">
-      <input v-model="messageText" placeholder="Type a message..."/>
-      <input type="file" accept="image/*" @change="onImageAttachment"/>
-      <input type="submit" value="Send"/>
-    </form>
+    <details>
+      <summary><b>Replies</b>: {{ replies.length }}</summary>
+      <form @submit.prevent="sendMessage">
+        <input v-model="messageText" placeholder="Type a message..."/>
+        <input type="file" accept="image/*" @change="onImageAttachment"/>
+        <input type="submit" value="Send"/>
+      </form>
 
-    <ul v-if="replies">
-      <!-- List all the messages -->
-      <li v-for="message of replies" :key="message.id">
+      <ul v-if="replies">
+        <!-- List all the messages -->
+        <li v-for="message of replies" :key="message.id">
 
-        <!-- Display and edit form if we're editing a message -->
-        <form v-if="editID==message.id" @submit.prevent="saveEditMessage(message)">
-          <input v-model="editText">
-          <input type="submit" value="Save"/>
-        </form>
+          <!-- Display and edit form if we're editing a message -->
+          <form v-if="editID==message.id" @submit.prevent="saveEditMessage(message)">
+            <input v-model="editText">
+            <input type="submit" value="Save"/>
+          </form>
 
-        <!-- Otherwise, display a bunch of properties from the message -->
-        <ul v-else>
-          <li>
-            Message: {{ message.content }}
-          </li>
-          <li>
-            From Name: <name :actor="message.actor"></name>
-          </li>
-          <li>
-            From Actor ID: {{ message.actor }}
-          </li>
-          <li>
-            From Username: {{ actordict[message.actor] }}
-          </li>
-          <template v-if="privateMessaging">
-            <li>
-              To Name: <name :actor="message.bto[0]"></name>
+          <!-- Otherwise, display a bunch of properties from the message -->
+          <ul v-else>
+            <li><b>Message</b>: {{ message.content }} </li>
+            <li><b>From Name</b>: <name :actor="message.actor"></name> ({{ actordict[message.actor] }})</li>
+
+            <details>
+              <summary><b>More Info</b>:</summary>
+              <ul>
+                <li><b>From Actor ID</b>: {{ message.actor }}</li>
+                <template v-if="privateMessaging">
+                  <li><b>To Name</b>: <name :actor="message.bto[0]"></name></li>
+                  <li><b>To Actor ID</b>: {{ message.bto[0] }}</li>
+                  <li><b>To Username</b>: {{ actordict[message.bto[0]] }}</li>
+                </template>
+                <li><b>Published at Time</b>: {{ message.published }}</li>
+                <li><b>Last Edited at Time</b>: {{ message.updated }}</li>
+
+                  <!-- This is a unique identifier that can be used to "link" to messages -->
+                <li><b>Message ID</b>: {{ message.id }}</li>
+              </ul>
+          </details>
+            <li v-if="message.attachment && message.attachment.magnet in imageDownloads">
+              <span v-if="imageDownloads[message.attachment.magnet]=='downloading'">
+                Image is downloading...
+              </span>
+              <span v-else-if="imageDownloads[message.attachment.magnet]=='error'">
+                Image could not be downloaded!
+              </span>
+              <img v-else :src="imageDownloads[message.attachment.magnet]" />
             </li>
-            <li>
-              To Actor ID: {{ message.bto[0] }}
-            </li>
-            <li>
-              To Username: {{ actordict[message.bto[0]] }}
-            </li>
-          </template>
-          <li>
-            Published at Time: {{ message.published }}
-          </li>
-          <li>
-            Last Edited at Time: {{ message.updated }}
-          </li>
-          <li>
-            <!-- This is a unique identifier that can be used to "link" to messages -->
-            ID: {{ message.id }}
-          </li>
 
-          <li v-if="message.attachment && message.attachment.magnet in imageDownloads">
-            <span v-if="imageDownloads[message.attachment.magnet]=='downloading'">
-              Image is downloading...
-            </span>
-            <span v-else-if="imageDownloads[message.attachment.magnet]=='error'">
-              Image could not be downloaded!
-            </span>
-            <img v-else :src="imageDownloads[message.attachment.magnet]" />
-          </li>
-
-          <li>
             <read :messageid="message.id" :actordict="actordict"></read>
-          </li>
 
-            <li>
             <reply :messageid="message.id" :actordict="actordict"></reply>
-          </li>
 
 
-          <!-- Only add these controls if the message is ours -->
-          <!-- You can't edit or delete other people's messages -->
-          <template v-if="message.actor==$gf.me">
-            <li>
-              <button @click="removeMessage(message)">
-                Delete Message
-              </button>
-            </li>
-            <li>
-              <button @click="startEditMessage(message)">
-                Edit Message
-              </button>
-            </li>
-          </template>
-          <li>
-            <like :messageid="message.id"></like>
-          </li>
-        </ul>
-      </li>
-    </ul>
+            <!-- Only add these controls if the message is ours -->
+            <!-- You can't edit or delete other people's messages -->
+            <template v-if="message.actor==$gf.me">
+              <li>
+                <button @click="removeMessage(message)">Delete Message</button>
+              </li>
+
+              <li>
+                <button @click="startEditMessage(message)">Edit Message</button>
+              </li>
+            </template>
+
+
+            <like :messageid="message.id"></like><br><br>
+          </ul>
+        </li>
+      </ul>
+    </details>
   </template>
 
 </body>
