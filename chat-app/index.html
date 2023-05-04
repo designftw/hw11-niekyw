@@ -240,13 +240,9 @@
             <!-- Only add these controls if the message is ours -->
             <!-- You can't edit or delete other people's messages -->
             <template v-if="message.actor==$gf.me">
-              <li>
-                <button @click="removeMessage(message)">Delete Message</button>
-              </li>
+              <li><button @click="removeMessage(message)">Delete Message</button> </li>
 
-              <li>
-                <button @click="startEditMessage(message)">Edit Message</button>
-              </li>
+              <li><button @click="startEditMessage(message)">Edit Message</button></li>
             </template>
 
 
