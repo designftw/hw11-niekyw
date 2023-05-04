@@ -10,6 +10,7 @@ const app = {
   // Import resolver
   created() {
     this.resolver = new Resolver(this.$gf)
+
   },
 
   setup() {
@@ -36,21 +37,19 @@ const app = {
       editID: '',
       editText: '',
       recipient: '',
-      //////////////////////////////
+
       // Problem 1 solution
       preferredUsername: '',
       usernameResult: '',
-      //////////////////////////////
-      //////////////////////////////
+
       // Problem 2 solution
       recipientUsername: '',
       recipientUsernameSearch: '',
-      //////////////////////////////
-      //////////////////////////////
+
       // Problem 3 solution
       myUsername: '',
-      actorsToUsernames: {},
-      /////////////////////////////
+      actordict: {},
+
       imageDownloads: {}
     }
   },
@@ -64,11 +63,11 @@ const app = {
 
     async messages(messages) {
       for (const m of messages) {
-        if (!(m.actor in this.actorsToUsernames)) {
-          this.actorsToUsernames[m.actor] = await this.resolver.actorToUsername(m.actor)
+        if (!(m.actor in this.actordict)) {
+          this.actordict[m.actor] = await this.resolver.actorToUsername(m.actor)
         }
-        if (m.bto && m.bto.length && !(m.bto[0] in this.actorsToUsernames)) {
-          this.actorsToUsernames[m.bto[0]] = await this.resolver.actorToUsername(m.bto[0])
+        if (m.bto && m.bto.length && !(m.bto[0] in this.actordict)) {
+          this.actordict[m.bto[0]] = await this.resolver.actorToUsername(m.bto[0])
         }
       }
     },
@@ -89,7 +88,7 @@ const app = {
       }
     }
   },
-  /////////////////////////////
+
 
   computed: {
     messages() {
@@ -323,7 +322,170 @@ const Like = {
   template: '#like'
 }
 
-app.components = { Name, Like }
+const Read = {
+  props: ["messageid","actordict"],
+
+  created() {
+    this.refreshKey = 0;
+    this.sendRead();
+  },
+
+  setup(props) {
+    const $gf = Vue.inject('graffiti')
+    const state = Vue.toRefs(props);
+    const messageid = Vue.toRef(props, 'messageid')
+    const actordict = Vue.toRef(props, 'actordict')
+    const { objects: readsRaw } = $gf.useObjects([messageid])
+    return { readsRaw }
+  },
+
+  watch: {
+    actordict: function(newVal){
+      this.refreshKey +=1;
+    }
+
+  },
+
+  computed: {
+    reads() {
+      return this.readsRaw.filter(l=>
+        l.type == 'Read' &&
+        l.object == this.messageid)
+    },
+
+    readsActor() {
+      return [...new Set(this.reads.map(l=>l.actor))]
+    },
+
+    readsUsers() {
+      return this.readsActor.map(a=> this.actordict && this.actordict[a] ? this.actordict[a] : a)
+    },
+
+    myRead() {
+      console.log("hello")
+      return this.reads.filter(l=> l.actor == this.$gf.me)
+    }
+  },
+
+  methods: {
+    sendRead() {
+      if (this.myRead.length == 0) {
+        this.$gf.post({
+          type: 'Read',
+          object: this.messageid,
+          context: [this.messageid]
+        })
+        this.readsRaw = this.$gf.useObjects([this.messageid]);
+      }
+    }
+  },
+
+  template: '#read'
+}
+
+const Reply = {
+
+  props: ["messageid","actordict"],
+
+  components: {
+    'read': Read,
+    'name': Name,
+    'like': Like,
+  },
+
+  created() {
+    this.refreshKey = 0;
+
+  },
+
+  setup(props) {
+    const $gf = Vue.inject('graffiti')
+    const messageid = Vue.toRef(props, 'messageid')
+    const actordict = Vue.toRef(props, 'actordict')
+    const { objects: repliesRaw } = $gf.useObjects([messageid])
+    return { repliesRaw }
+  },
+
+  computed: {
+    replies() {
+      return this.repliesRaw.filter(l=>
+        l.type == 'Note' &&
+        l.inReplyTo == this.messageid)
+    },
+
+    myReply() {
+      return this.replies.filter(l=> l.actor == this.$gf.me)
+    }
+  },
+
+  watch: {
+    actordict: function(newVal){
+      this.refreshKey +=1;
+    }
+  },
+
+  data() {
+    // Initialize some more reactive variables
+    return {
+      messageText: '',
+      editID: '',
+      editText: '',
+    }
+  },
+
+  methods: {
+    async sendMessage() {
+      const message = {
+        type: 'Note',
+        content: this.messageText,
+        inReplyTo: this.messageid,
+        context: [this.messageid]
+      }
+
+      if (this.file) {
+        message.attachment = {
+          type: 'Image',
+          magnet: await this.$gf.media.store(this.file)
+        }
+        this.file = null
+      }
+
+      // The context field declares which
+      // channel(s) the object is posted in
+      // You can post in more than one if you want!
+      // The bto field makes messages private
+
+      // Send!
+      this.$gf.post(message);
+      this.messageText = ''
+
+    },
+
+    removeMessage(message) {
+      this.$gf.remove(message)
+    },
+
+    startEditMessage(message) {
+      // Mark which message we're editing
+      this.editID = message.id
+      // And copy over it's existing text
+      this.editText = message.content
+    },
+
+    saveEditMessage(message) {
+      // Save the text (which will automatically
+      // sync with the server)
+      message.content = this.editText
+      // And clear the edit mark
+      this.editID = ''
+    },
+  },
+
+  template: '#reply'
+}
+
+
+app.components = { Name, Like, Read, Reply}
 Vue.createApp(app)
    .use(GraffitiPlugin(Vue))
    .mount('#app')
