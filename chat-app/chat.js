@@ -510,10 +510,8 @@ const Profile = {
 
   watch: {
     async profile(profile) {
-      console.log(profile.icon.magnet);
-      let blob;
       let magnet = await this.$gf.media.fetch(profile.icon.magnet);
-      blob = URL.createObjectURL(magnet)
+      let blob = URL.createObjectURL(magnet)
       this.image = blob;
     }
   },

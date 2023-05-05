@@ -118,6 +118,12 @@ button:hover, input[type=submit]:hover {
     outline: none;
   }
 
-  hr {
-    color: rgb(117, 180, 201);
-  }
+img {
+    max-width: 100vh;
+}
+
+#profile {
+    height: 150px;
+    border-radius: 50%;
+}
+

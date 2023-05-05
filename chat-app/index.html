@@ -22,9 +22,6 @@
 
     <!-- If we're not logged in, hide everything except the login button -->
     <template v-if="$gf.me">
-      <p> My Profile Picture: </p>
-      <profile :actor="$gf.me"></profile>
-
       <!-- Begin Problem 1 Solution -->
       <p>
         <form @submit.prevent="setUsername">
@@ -41,6 +38,9 @@
         <!-- See below for the template. -->
         My Name: <name :actor="$gf.me" :editable="true"></name>
       </p>
+
+      <p> My Profile Picture: </p>
+      <profile :actor="$gf.me"></profile><br>
 
       Chat Format:
       <div class="tab">
@@ -123,7 +123,7 @@
               <details>
                 <summary><b>More Info</b>:</summary>
                 <ul>
-                  <profile :actor="message.actor"></profile>
+                  <profile :actor="message.actor"></profile><br>
                   <li><b>From Actor ID</b>: {{ message.actor }}</li>
                   <template v-if="privateMessaging">
                     <li><b>To Name</b>: <name :actor="message.bto[0]"></name></li>
@@ -183,33 +183,15 @@
     </details>
   </template>
 
-  <template id="profile2">
-    <span v-if="!image">
+  <template id="profile">
+    <div v-if="!image">
       No Image located!
-    </span>
+    </div>
     <img v-else :src="image" id="profile"/>
     <form @submit.prevent="setProfile">
-      <input type="file" accept="image/*" @change="onImageAttachment"/>
+      <input type="file" accept="image/*" @change="onImageAttachment"/><br>
       <input type="submit" value="Set Profile Picture"/>
     </form>
-  </template>
-
-  <template id="profile">
-    <span v-if="editable">
-      <p> My Profile Picture: </p>
-      <span v-if="!image">
-        Image could not be downloaded!
-      </span>
-      <img v-else :src="image" id="my-profile"/>
-      <form @submit.prevent="setProfilePic">
-        <input type="file" accept="image/*" @change="onImageAttachment"/>
-        <input type="submit" value="Set Profile Picture" :disabled="file === null"/>
-      </form>
-    </span>
-    <span v-else>
-      <img v-if="image" :src="image" id="other-profile"/>
-      <i v-else class='far fa-user-circle' style='font-size:48px' id="other-profile"></i>
-    </span>
   </template>
 
   <template id="reply">
