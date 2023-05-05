@@ -6,7 +6,6 @@ import Resolver from './resolver.js'
 const app = {
   // Import MaVue
   mixins: [mixin],
-
   // Import resolver
   created() {
     this.resolver = new Resolver(this.$gf)
@@ -209,7 +208,14 @@ const app = {
     onImageAttachment(event) {
       const file = event.target.files[0]
       this.file = file
-    }
+    },
+
+    resizeTextarea(event) {
+      const textarea = event.target;
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    },
+
   }
 }
 

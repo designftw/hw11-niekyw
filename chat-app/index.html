@@ -42,14 +42,14 @@
         My Name: <name :actor="$gf.me" :editable="true"></name>
       </p>
 
-      <p>
-        Change chat format:
-        <input type="radio" id="channel" :value="false" v-model="privateMessaging" />
-        <label for="channel">Channel-based public chat</label>
+      Chat Format:
+      <div class="tab">
+        <input type="radio" name="css-tabs"  checked class="tab-switch" id="channel" :value="false" v-model="privateMessaging" />
+        <label for="channel">Public Chat</label>
 
-        <input type="radio" id="pm" :value="true" v-model="privateMessaging" />
+        <input type="radio" name="css-tabs" class="tab-switch" id="pm" :value="true" v-model="privateMessaging" />
         <label for="pm">Private Messaging</label>
-      </p>
+      </div>
 
       <p v-if="!privateMessaging">
         <label for="channel">
@@ -77,7 +77,7 @@
 
       <!-- A form for sending messages -->
       <form @submit.prevent="sendMessage">
-        <textarea type="textbox" id="message" rows="5" v-model="messageText" placeholder="Type a message..."></textarea>
+        <textarea type="textbox" id="message"  v-model="messageText" placeholder="Type a message..." @input="resizeTextarea"></textarea>
         <input type="file" accept="image/*" @change="onImageAttachment"/>
         <input type="submit" value="Send" id="right"/>
       </form>
@@ -197,7 +197,7 @@
     <details>
       <summary><b>Replies</b>: {{ replies.length }}</summary>
       <form @submit.prevent="sendMessage">
-        <textarea type="textbox" id="message" rows="2" v-model="messageText" placeholder="Type a message..."></textarea>
+        <textarea type="textbox" id="message" v-model="messageText" placeholder="Type a message..."></textarea>
         <input type="file" accept="image/*" @change="onImageAttachment"/>
         <input type="submit" value="Send" id="right"/>
       </form>

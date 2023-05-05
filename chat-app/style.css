@@ -19,6 +19,10 @@ textarea {
     width: 100%;
 }
 
+textarea:not(:empty) {
+    height: auto;
+  }
+
 #right {
     float: right;
     display: block;
@@ -47,21 +51,73 @@ details li {
 }
 
 button, input[type=submit] {
-    background-color: rgb(247, 240, 240);
+    background-color: #eee;
     border-style: solid;
     border: 1px;
     border-color: black;
+    transition: background-color 0.1s;
 }
+
 
 button:hover, input[type=submit]:hover {
     background-color: rgb(117, 180, 201);
 }
 
 
-template #inner {
-    color: black;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 30px;
-    margin-right: 30px;
+.tab {
+    display: flex;
 }
+  
+.tab-switch {
+    display: none;
+  }
+  
+.tab label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    margin: 0;
+    padding: 10px;
+    background-color: #eee;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tab label:hover {
+    background-color: rgb(117, 180, 201);
+}
+
+.tab label:focus,
+
+.tab label:active {
+    background-color: rgb(117, 180, 201);
+    transition: color 0.1s;
+}
+
+.tab-switch:checked + label {
+    background-color: rgb(117, 180, 201);
+    color: #fff;
+    transition: color 0.1s;
+}
+
+.tab .tab-switch:nth-of-type(2) + label {
+    border-radius: 0 0 5px 5px;
+}
+
+
+#message {
+    resize: none;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 30vh;
+    transition: height 0.3s ease;
+    outline: none;
+  }
+
+  hr {
+    color: rgb(117, 180, 201);
+  }
