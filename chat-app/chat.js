@@ -234,7 +234,7 @@ const Name = {
     profile() {
       return this.objects
         // Filter the raw objects for profile data
-        // https://www.w3.org/TR/activitystreams-vocabulary/#dfn-profile
+        // https://www.w3.org/TR/activitystreams-vocabulary/#dfn-profile 
         .filter(m=>
           // Does the message have a type property?
           m.type &&
@@ -514,7 +514,7 @@ const Profile = {
       let blob = URL.createObjectURL(magnet)
       this.image = blob;
     }
-  },
+  }, 
 
   data() {
     return {
