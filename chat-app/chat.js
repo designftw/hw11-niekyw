@@ -214,7 +214,8 @@ const app = {
       const textarea = event.target;
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';
-    },
+    }
+
 
   }
 }
@@ -491,7 +492,7 @@ const Reply = {
 }
 
 const Profile = {
-  props: ['actor', 'editable'],
+  props: ['actor'],
 
   setup(props) {
     const { actor } = Vue.toRefs(props)
@@ -511,14 +512,8 @@ const Profile = {
     async profile(profile) {
       console.log(profile.icon.magnet);
       let blob;
-      try {
-        let magnet = await this.$gf.media.fetch(profile.icon.magnet);
-        blob = URL.createObjectURL(magnet)
-      } catch(e) {
-        console.log(e);
-        blob = "error"
-      }
-      console.log(blob);
+      let magnet = await this.$gf.media.fetch(profile.icon.magnet);
+      blob = URL.createObjectURL(magnet)
       this.image = blob;
     }
   },
@@ -533,7 +528,7 @@ const Profile = {
   },
 
   methods: {
-    async setProfilePic() {
+    async setProfile() {
       const message = {
         type: 'Profile',
         icon: {

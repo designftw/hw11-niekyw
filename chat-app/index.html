@@ -123,7 +123,7 @@
               <details>
                 <summary><b>More Info</b>:</summary>
                 <ul>
-                  
+                  <profile :actor="message.actor"></profile>
                   <li><b>From Actor ID</b>: {{ message.actor }}</li>
                   <template v-if="privateMessaging">
                     <li><b>To Name</b>: <name :actor="message.bto[0]"></name></li>
