@@ -123,6 +123,7 @@
               <details>
                 <summary><b>More Info</b>:</summary>
                 <ul>
+                  
                   <li><b>From Actor ID</b>: {{ message.actor }}</li>
                   <template v-if="privateMessaging">
                     <li><b>To Name</b>: <name :actor="message.bto[0]"></name></li>
@@ -182,7 +183,7 @@
     </details>
   </template>
 
-  <template id="profile">
+  <template id="profile2">
     <span v-if="!image">
       No Image located!
     </span>
@@ -191,6 +192,24 @@
       <input type="file" accept="image/*" @change="onImageAttachment"/>
       <input type="submit" value="Set Profile Picture"/>
     </form>
+  </template>
+
+  <template id="profile">
+    <span v-if="editable">
+      <p> My Profile Picture: </p>
+      <span v-if="!image">
+        Image could not be downloaded!
+      </span>
+      <img v-else :src="image" id="my-profile"/>
+      <form @submit.prevent="setProfilePic">
+        <input type="file" accept="image/*" @change="onImageAttachment"/>
+        <input type="submit" value="Set Profile Picture" :disabled="file === null"/>
+      </form>
+    </span>
+    <span v-else>
+      <img v-if="image" :src="image" id="other-profile"/>
+      <i v-else class='far fa-user-circle' style='font-size:48px' id="other-profile"></i>
+    </span>
   </template>
 
   <template id="reply">

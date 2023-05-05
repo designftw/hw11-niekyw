@@ -491,7 +491,7 @@ const Reply = {
 }
 
 const Profile = {
-  props: ['actor'],
+  props: ['actor', 'editable'],
 
   setup(props) {
     const { actor } = Vue.toRefs(props)
@@ -511,8 +511,14 @@ const Profile = {
     async profile(profile) {
       console.log(profile.icon.magnet);
       let blob;
-      let magnet = await this.$gf.media.fetch(profile.icon.magnet);
-      blob = URL.createObjectURL(magnet)
+      try {
+        let magnet = await this.$gf.media.fetch(profile.icon.magnet);
+        blob = URL.createObjectURL(magnet)
+      } catch(e) {
+        console.log(e);
+        blob = "error"
+      }
+      console.log(blob);
       this.image = blob;
     }
   },
@@ -527,7 +533,7 @@ const Profile = {
   },
 
   methods: {
-    async setProfile() {
+    async setProfilePic() {
       const message = {
         type: 'Profile',
         icon: {
