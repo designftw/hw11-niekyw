@@ -1,0 +1,249 @@
+body{
+    padding-bottom: 50px;
+    overflow: auto;
+}
+
+#usernameError {
+    display: none;
+    color: red
+}
+
+#recipientError {
+    display: none;
+    color: red
+}
+
+
+ul {
+    margin-bottom: 30px;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+textarea:not(:empty) {
+    height: auto;
+  }
+
+#right {
+    float: right;
+}
+
+body {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+details li {
+    margin-left: 15px;
+}
+
+#content {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#inner {
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+button, input[type=submit] {
+    background-color: #eee;
+    border-style: solid;
+    border: 1px;
+    border-color: black;
+    transition: background-color 0.1s;
+}
+
+
+button:hover, input[type=submit]:hover {
+    background-color: rgb(117, 180, 201);
+}
+
+
+.tab {
+    display: flex;
+}
+  
+.tab-switch {
+    display: none;
+  }
+  
+.tab label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    margin: 0;
+    padding: 10px;
+    background-color: #eee;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tab label:hover {
+    background-color: rgb(117, 180, 201);
+}
+
+.tab label:focus,
+
+.tab label:active {
+    background-color: rgb(117, 180, 201);
+    transition: color 0.1s;
+}
+
+.tab-switch:checked + label {
+    background-color: rgb(117, 180, 201);
+    color: #fff;
+    transition: color 0.1s;
+}
+
+.tab .tab-switch:nth-of-type(2) + label {
+    border-radius: 0 0 5px 5px;
+}
+
+
+#message {
+    resize: none;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 30vh;
+    transition: height 0.3s ease;
+    outline: none;
+  }
+
+img {
+    max-width: 100vh;
+}
+
+#profile {
+    display: block;
+}
+
+
+.send-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .send-btn {
+    padding: 10px;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: 40px;
+    border-right: none;
+    width: 70px;
+    box-sizing: border-box;
+}
+  
+.dropbtn {
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 40px;
+    border-left: solid;
+}
+  
+.caret-down {
+    border-color: #333 transparent transparent transparent;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    display: inline-block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    min-width: 160px;
+    padding: 5px 0;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+  
+.dropdown-content input {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+    border: none;
+}
+  
+.dropdown-content input:hover {
+    background-color: #ddd;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+  
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+  
+.dropdown:focus-within .dropbtn {
+    outline: none;
+    box-shadow: 0 0 0 2px;
+}
+  
+#copyBtn {
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid black;
+    z-index: 9999;
+  }
+  
+  #dialog-content {
+    padding: 20px;
+  }
+
+  
+  body.modal-open {
+    overflow: hidden;
+  }
+  
+  body.modal-open #dialog-overlay {
+    display: block;
+  }
+  
+  #dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+  }

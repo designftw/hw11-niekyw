@@ -1,0 +1,35 @@
+/* css for all of your write ups here */
+img, video{
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    }
+
+figcaption{
+    font-style: italic;
+    text-align: block;
+    width: 95%;
+    margin: auto;
+    }
+
+body{
+  width: 50%;
+  margin: auto;
+  font-family: "Helvitica", sans-serif;
+}
+
+summary{
+  font-weight: bold;
+}
+
+h2{
+    font-size: medium;
+    margin-up: 20px;
+}
+
+section{
+    margin-bottom: 30px;
+}

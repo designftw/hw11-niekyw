@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW12 Writeup</title>
+    <link rel="stylesheet" href="writeup.css">
+</head>
+<body>
+	<h1>HW12 Writeup</h1>
+	<details open>
+		<summary>Plan</summary>
+    I intend to implement the severa, features for my chat app, including methods to customize the behavior 
+    when sending a message, and support for group chats.
+    <ol>
+      <li><b>Copy to Clipboard</b>: enable users to copy the current message to clipboard.</li>
+      <li><b>Send to Self</b>: send a copy of the current message as a direct message to themself.</li>
+      <li><b>Scheduled Send</b>: schedule a message to be sent later.</li>
+      <li><b>Group Chat</b>: enable users to invite others to a group for chat.</li>
+      <li><b>Chat Tags</b>: enable users to tag direct message or group chats</li>
+      <li><b>Cosmetic and Animation</b>: general animations to make the app look nice, including potentially darkmode.</li>
+    </ol>
+	</details>
+
+	<details open>
+		<summary>Progress</summary>
+    I have completed approximately half of these features. 
+    <ol>
+      <li><b>Copy to Clipboard</b>: fully implemented. User can hover to the right of the send button for additional
+        send options, including copy to clipboard. </li>
+        <figure id = 'interaction'>
+          <video controls><source src = 'videos/copy.mov' type = 'video/mp4'></video><br>
+          <figcaption>Click copy to clipboard to copy current text, in case a long message needs additional editing!</figcaption>
+        </figure>
+      <li><b>Send to Self</b>: fully implemented. User can use the same dropdown to send private messages to themselves. 
+        For ease of accessing the thread to themselves, a "chat with self" button has also been added to private messaging when
+        the recipient user is not the same as the logged in user. </li>
+        <figure id = 'interaction'>
+          <video controls><source src = 'videos/self_send.mov' type = 'video/mp4'></video><br>
+          <figcaption>Send a message to yourself as reminder and/ or for record-keeping.</figcaption>
+        </figure>
+      <li><b>Scheduled Send</b>: partially implemented. Code skeleton that changes button text (to inform state) at a given
+        date time selection works. UI has also been implemented. Function integration with chat app to come.</li>
+        <figure id = 'interaction'>
+          <video controls><source src = 'videos/schedule.mov' type = 'video/mp4'></video><br>
+          <figcaption>Schedule a message to be sent later. Demonstrated time delay works. Integration to come.</figcaption>
+        </figure>
+        <li><b>Group Chat</b>: not started.</li>
+      <li><b>Chat Tags</b>: not started.</li>
+      <li><b>Cosmetic and Animation</b>: partially implemented. General animations are added as appropriate.</li>
+    </ol>
+	</details>
+
+
+</body>
+</html>
+
