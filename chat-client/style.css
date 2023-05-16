@@ -214,36 +214,5 @@ img {
     transition: background-color 0.2s ease-in-out;
 }
 
-#dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid black;
-    z-index: 9999;
-  }
-  
-  #dialog-content {
-    padding: 20px;
-  }
 
   
-  body.modal-open {
-    overflow: hidden;
-  }
-  
-  body.modal-open #dialog-overlay {
-    display: block;
-  }
-  
-  #dialog-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
-    display: none;
-  }

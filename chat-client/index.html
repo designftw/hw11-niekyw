@@ -8,21 +8,14 @@
   <div id="app">
     <h1>Chat App</h1>
 
-    <!-- Begin problem 3 solution -->
     <h2>Welcome {{myUsername}}</h2>
-    <!-- End problem 3 solution -->
-    
     <p>
       <button @click="$gf.toggleLogIn">
-        <!-- If we have a user ID, we're logged in so show "Log Out" -->
-        <!-- Otherwise, show "Log In" -->
         {{ $gf.me? 'Log Out' : 'Log In' }}
       </button>
     </p>
 
-    <!-- If we're not logged in, hide everything except the login button -->
     <template v-if="$gf.me">
-      <!-- Begin Problem 1 Solution -->
       <p>
         <form @submit.prevent="setUsername">
           <input v-model="preferredUsername" placeholder="Choose a username..."/>
@@ -30,17 +23,14 @@
         </form>
         {{ usernameResult }}
       </p>
-      <!-- End Problem 1 Solution -->
 
       <p>
-        <!-- We display names in multiple places, so we made a -->
-        <!-- reusable <name></name> component. -->
-        <!-- See below for the template. -->
         My Name: <name :actor="$gf.me" :editable="true"></name>
       </p>
 
       <p> My Profile Picture: </p>
       <profile :actor="$gf.me" :editable="true"></profile><br>
+    </div>
 
       Chat Format:
       <div class="tab">
@@ -89,22 +79,11 @@
             </button>
             <div class="dropdown-content">
               <input id="copyBtn" value="Copy to Clipboard" @click="copyText"/>
-              <input v-if="!privateMessaging" value="Send to Self"  @click="sendToSelf"/>
-              <input id='scheduleBtn' value="Schedule Send" @click="showDialog"/>
-              <div id="dialog" style="display: none;">
-                <div id="dialog-content">
-                  <input value="X" @click="hideDialog">
-                  <br>
-                  <textarea></textarea>
-                  <br>
-                  <label for="datetime">Send:</label>
-                  <input type="datetime-local" id="datetime" name="datetime"/>
-                  <input value="Schedule Message" @click="delayedAction"/>
-                </div>
+              <input value="Send to Self"  @click="sendToSelf"/>
               </div>
             </div>
           </div>
-        </div>
+  
       </form>
 
       <ul>
@@ -242,11 +221,11 @@
             </div>
           </div>
         </div>
-      </form>
+      </form><br>
 
       <ul>
         <!-- List all the messages -->
-        <li v-for="message of messages" :key="message.id">
+        <li v-for="message of replies" :key="message.id">
 
           <!-- Display and edit form if we're editing a message -->
           <form v-if="editID==message.id" @submit.prevent="saveEditMessage(message)">

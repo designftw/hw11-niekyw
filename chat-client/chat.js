@@ -270,52 +270,6 @@ const app = {
     this.recipientUsername = this.myUsername
     const selfChat = document.getElementById('self-chat')
     selfChat.style.backgroundColor = rgb(117, 180, 201);
-  },
-
-  delayedAction() {
-    const btn = document.getElementById('scheduleBtn');
-    const datetime = document.getElementById('datetime').value;
-    const selectedTime = new Date(datetime);
-    const currentTime = new Date();
-    
-    if (selectedTime <= currentTime) {
-      // Perform the action right away
-      btn.textContent = 'Message Sent';
-      setTimeout(function() {
-        btn.textContent = 'Schedule Message';
-      }, 1000);
-      document.getElementById('datetime').value = '';
-      this.hideDialog();
-    } else {
-      // Schedule the action with a delay
-      const delay = selectedTime.getTime() - currentTime.getTime();
-      btn.textContent = 'Message Scheduled...';
-      this.hideDialog();
-      setTimeout(function() {
-        // Perform the action here
-        btn.textContent = 'Message Sent';
-        console.log('Done')
-        setTimeout(function() {
-          btn.textContent = 'Schedule Message';
-        }, 1000);
-        document.getElementById('datetime').value = '';
-      }, delay);
-    }
-  },
-  
-  
-  showDialog() {
-    const dialog = document.getElementById('dialog');
-    dialog.style.display = 'block';
-    const body = document.getElementsByTagName('body')[0];
-    body.style.overflow = 'hidden';
-  },
-  
-  hideDialog() {
-    const dialog = document.getElementById('dialog');
-    dialog.style.display = 'none';
-    const body = document.getElementsByTagName('body')[0];
-    body.style.overflow = 'auto';
   }
   }
 }
@@ -658,7 +612,7 @@ const MagnetImg = {
     src: String,
     loading: {
       type: String,
-      default: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Loading_icon_cropped.gif'
+      default: 'icons/default.webp'
     },
     error: {
       type: String,
