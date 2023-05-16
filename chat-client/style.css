@@ -1,18 +1,41 @@
+#stickied {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    height: 150px;
+    z-index: 2;
+}
+
+#below {
+    margin-top: 150px;
+}
+
+#unlogged {
+    height: 50px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+table {
+    margin-left: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: right;
+  }
+  
 body{
     padding-bottom: 50px;
     overflow: auto;
+    margin-left: 15%;
+    margin-right: 15%;
 }
-
-#usernameError {
-    display: none;
-    color: red
-}
-
-#recipientError {
-    display: none;
-    color: red
-}
-
 
 ul {
     margin-bottom: 30px;
@@ -30,11 +53,6 @@ textarea:not(:empty) {
 
 #right {
     float: right;
-}
-
-body {
-    margin-left: 20%;
-    margin-right: 20%;
 }
 
 details li {
@@ -173,7 +191,6 @@ img {
 .dropdown-content {
     display: none;
     position: absolute;
-    z-index: 1;
     min-width: 160px;
     padding: 5px 0;
     background-color: #f1f1f1;
@@ -213,6 +230,33 @@ img {
     position: relative;
     transition: background-color 0.2s ease-in-out;
 }
+
+#profile {
+    max-height: 200px;
+    height: 100%;
+}
+
+/* Styling for the modal */
+#settings-modal {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+  }
 
 
   

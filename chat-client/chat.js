@@ -52,8 +52,6 @@ const app = {
       imageDownloads: {},
 
       buttonDisabled: false,
-
-      scheduledMessage: '',
     }
   },
 
@@ -270,7 +268,43 @@ const app = {
     this.recipientUsername = this.myUsername
     const selfChat = document.getElementById('self-chat')
     selfChat.style.backgroundColor = rgb(117, 180, 201);
+  },
+
+  settings() {
+    // Get the modal element
+    var modal = document.getElementById("settings-modal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("settings");
+
+    // Get the close button
+    var span = document.getElementById("close-button");
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on the close button, close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  },
+
+  convertToLocal(dateString) {
+    const date = new Date(dateString)
+    const localDate = new Date(date.getTime() + (date.getTimezoneOffset() * 60000))
+    this.localDate = localDate.toLocaleString()
   }
+
+
   }
 }
 
